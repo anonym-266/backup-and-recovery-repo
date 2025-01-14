@@ -1,0 +1,29 @@
+* LC_ALL: Overall locale settings, including language, region, and character encoding.
+* LC_CTYPE: Character encoding and keyboard layout settings.
+* LC_COLLATE: Sorting and comparison settings for strings.
+* LC_TIME: Date and time format settings.
+* LC_NUMERIC: Number formatting settings.
+* LC_MONETARY: Currency formatting settings.
+* LC_MESSAGES: Message translation settings.
+* LC_PAPER: Paper size and orientation settings.
+* LC_COLLATE: Sets the alphabetical ordering.
+
+
+* Character Conversion: LC_CTYPE affects the behavior of character conversion functions, such as toupper() and tolower(). LC_COLLATE does not affect character conversion.
+* Sorting vs. Character Classification: LC_COLLATE is concerned with sorting and comparing strings, while LC_CTYPE is concerned with character classification and conversion.
+NTP pool: 	The pool is a dynamic collection of networked computers that offer highly accurate time via NTP to millions of devices, including computers, routers, smartphones, and other networked appliances.
+
+Dig -t …
+
+
+
+Solution to error: failed to push some refs to 'https://github.com/<repo-name>
+This error typically occurs when Git detects a conflict between your local repository and the remote repository on GitHub
+1.  Fetch and merge remote change  with `git fetch origin` then `git merge origin/<branch-name>`
+2. Pull and rebase: Alternatively, you can use git pull origin/<branch-name> to fetch and merge the remote changes. If you’ve made local changes, you may need to rebase your commits on top of the updated remote branch using git pull origin/<branch-name> --rebase.
+- You Neither help even when I ask.. like when I asked you to help me book for the exams you simply answered that was something I was supposed to know, I gues you should have stopped our conversation if I ever said anything like that
+- When have you ever cared to give me you .. when ever you saw my mouth was dry
+My position relative to you, I told you you made it difficult for me since now am the one putting in the efforts, I dunno whether it’s because you are tired, it’s too difficult or coz you are ashamed of me..
+
+I don’t want you to feel bad coz of me, and maybe to do so I’ll have to stop asking that much from you
+

@@ -4,12 +4,12 @@
 read -p "Enter the filenames to backup (space-separated): " -a backupFiles
 
 # Initialize an array to hold the found file paths
-filePath=()
+filePath=("/home/ubuntu/mock1.log" "/home/ubuntu/mock2.log" "/home/ubuntu/mock3.log" "/home/ubuntu/mock4.log")
 
 # Loop through each file name provided by the user
 for file in "${backupFiles[@]}"; do
     # Use find to locate the file in the home directory
-    foundFile=$(find /home/ubuntu -type f -name "$file" 2>/dev/null) 
+    foundFile=$(find /home/ubuntu -type f -name "$file" 2>/dev/null)
 
     # Check if the file was found
     if [[ -n $foundFile ]]; then

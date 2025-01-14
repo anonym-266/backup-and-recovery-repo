@@ -1,0 +1,28 @@
+Docker Stop vs Pause Difference
+The docker stop and docker pause commands serve different purposes in managing Docker containers. Here are the key differences:
+* Preservation of State: When you use docker pause, the container’s processes are suspended, but the state and memory are preserved. In contrast, docker stop sends a SIGTERM signal to the container’s main process, allowing it to perform a graceful shutdown and save its state. After a grace period, a SIGKILL signal is sent to forcefully terminate the process, and the container’s memory is cleared.
+* Process Suspension: The docker pause command suspends all processes within the container using the freezer cgroup on Linux, making the processes unaware of being paused. docker stop, however, terminates the processes by sending signals that the processes can catch and respond to, potentially allowing them to clean up before exiting.
+* Memory Usage: In the paused state, the container retains its memory, which is useful for resuming operations without losing state. When a container is stopped, its memory is cleared, and the container must be restarted to resume operations.
+Cyber Security notes
+
+Key Terms
+In this section, we will provide a list of key terms that you should know as we get started. We will go over many of these in the lessons that follow, as well as provide new terms along the way.
+Unless otherwise noted, most of these definitions are from the NIST Computer Security Resource Center. NIST is the National Institute of Standards and Technology, and many standards we rely upon in cybersecurity (and computing in general) were created by NIST.
+* Bit - A binary digit having a value of 0 or 1. The atomic unit of information in computing.
+* Byte - A group of eight bits that is treated either as a single entity or as an array of 8 individual bits.
+* Software - Computer programs and associated data that can be dynamically written and modified during execution.
+* Network - A system implemented with a collection of interconnected components. Such components may include routers, hubs, cabling, telecommunications controllers, key distribution centers, and technical control devices.
+* Defense-in-Depth - An information security strategy that integrates people, technology, and operations capabilities to establish variable barriers across multiple layers and missions of the organization.
+* Authentication - Verifying a user is who they say they are.
+* Authorization - Validating that an identity being claimed by the user is known to the system and verifying what that user should have access to.
+* Identification - Asserting an identity and having it confirmed.
+* Confidentiality - Preserving authorized restrictions on information access and disclosure, including means for protecting personal privacy and proprietary information.
+* Integrity - Guarding against improper information modification or destruction and includes ensuring information non-repudiation and authenticity.
+* Availability - Ensuring timely and reliable access to and use of information.
+* Non-Repudiation - Not being able to deny you did something. In the context of network communications, non-repudiation refers to the proof of who the sender of a message was. In this way, the sender cannot deny that they sent it.
+* Vulnerability - A weakness or flaw that could potentially permit undesirable actions on your assets.
+* Threat - A source of harm that acts upon (i.e. exploits) a vulnerability.
+* Risk - The possibility of an negative event occurring - i.e. when a threat acts upon a vulnerability.
+* Threat Actor - An individual or a group that exploits vulnerabilities in technology.
+JavaScript
+

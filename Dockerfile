@@ -1,20 +1,29 @@
 # using latest version of ubuntu
 FROM ubuntu:latest
 
-# creating output mock files from 
-RUN apt update >> /home/ubuntu/mock1.log && apt upgrade -y > /home/ubuntu/mock2.log
+# Update package lists and install required utilities
+RUN apt update  -y && \
+    apt install -y cron \
+                nano
 
 # setting the working direcctory to the home  directory
 WORKDIR /home/ubuntu/
 
-# copy the backup script to the home direclty
-COPY ./backup.sh /home/ubuntu/back.sh
+# copy the files in the current to the home direclty
+COPY . .
 
-# copy the recovery script to the home direclty
-COPY ./recovery_script.sh /home/ubuntu/recovery_script.sh
+# Grant execute permissions to the scripts
+RUN chmod +x ./backup.sh && \
+    chmod +x ./recovery_script.sh
 
-# giving execute permission to the backup  script
-RUN chmod u+x /home/ubuntu/back.sh
 
-# giving execute permission to the recovery  script
-RUN chmod u+x /home/ubuntu/recovery_script.sh
+# Add a cron job to execute the backup script every minute
+RUN echo "* * * * * /home/ubuntu/backup.sh" > /etc/cron.d/my-cron-job && \
+    chmod 0644 /etc/cron.d/my-cron-job && \
+    crontab /etc/cron.d/my-cron-job
+
+# Create a directory for cron logs
+RUN mkdir -p /var/log/cron
+
+# Default command to run cron in the foreground
+CMD ["cron", "-f"]
