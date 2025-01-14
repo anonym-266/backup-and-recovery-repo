@@ -1,21 +1,20 @@
 # Overview of content
-### This repo consists of three files...
+### This repo consists of four main files...
 
-The **backup script**, the **recovery script** and the **Dockerfile**
+The **backup script**, the **recovery script**, the **run script** and the **Dockerfile** along side mock files.
 
-1. The backup script
+> ### 1. The backup script
   
-Prompt for Input: The script prompts the user to enter the names of files they want to back up. The user can input multiple filenames separated by spaces.
-
-  File Search: For each filename entered by the user, the script uses the find command to search for the file in the user's home directory (~). It checks if the file exists and stores the full path of found files in an array called filePath.
+&nbsp; &nbsp; The script prompts the user to enter the names of files they want to back up when sourced or executed. it also contains default mock files to backup and the user simply presses on enter to use default mock files
+  File Search: For each filenames, the script uses the find command to search for the file in /home/ubuntu to narrow the search. It checks if the files entered exists and appends the full path of found files to the mock files found in an array called filePath.
 
   File Existence Check: If a file is not found, the script outputs a message indicating that the file does not exist.
 
   Backup Directory Check: The script checks if a directory named backup exists:
-  If it exists, it checks if an archive file named archive.tar.gz already exists in that directory
-  If the archive exists, it decompresses it, adds the newly found files to the existing archive, and then compresses it again.
-  If the archive does not exist, it creates a new archive file containing the found files.
-  If the backup directory does not exist, the script creates it and then creates a new archive file containing the found files.
+  - If it exists, it checks if an archive file named archive.tar.gz already exists in that directory
+  - If the archive exists, it decompresses it, adds the newly found files to the existing archive, and then compresses it again.
+  - If the archive does not exist, it creates a new archive file containing the found files.
+  - If the backup directory does not exist, the script creates it and then creates a new archive file containing the found files.
 
 Output Messages: Throughout the process, the script provides feedback to the user, indicating whether files were found, whether the backup directory was created, and when the backup was completed.
 
@@ -23,35 +22,40 @@ Output Messages: Throughout the process, the script provides feedback to the use
 
 In summary, the script automates the process of backing up specified files from the user's home directory into a compressed archive, handling both the creation of new archives and the updating of existing ones. It provides user feedback and ensures that the backup process is clear and organized.
 
-the recovery script
 
-the recovery script 
-it extraccts files from the backup arcchive to the root directory and logs the recovery action including the names of the recorvered files and a timestamp of the recovery
+> ### 2. The recovery script
 
-the dockerfile
+it extracts files from the backup archive to the root directory 
 
-it is used to create an image based on the latest version of ubuntu
-it perfoms several tasks including updating the package list, though not very usefull for this case
-  the output of the apt update and apt upgrade  commands are redirected into two mock files, mock1.log and mock2.log which are used as mock files to test the backup script
-it sets the working directory to `/home/ubuntu`
-it copies the two scripts from the directory where the dockerfile is located into `/home/ubuntu` and makes them executable
+
+> ### 3. the dockerfile
+
+It is used to create an image based on the latest version of ubuntu
+It sets the working directory to `/home/ubuntu`
+It copies the two scripts from the directory where the dockerfile is located into `/home/ubuntu` and makes them executable..
+It may add cron job to execute the backup script every minute..(we're still working on fixing the bug). If the cronjob isn't executed, the user may have to execute the script manually
 
 # User guide
-once the repo is pulled, the following commands are runned to build the image and run a container to run the scripts
-
-to pull build the image
+Once the repo is pulled, the run.sh script can be sourced to build the image and run a container with the required configurations using the syntax:
 ```bash
-docker build -t try9 .
+source run.sh
 ```
 
-to run the container
-```bash
-docker run -it --name con03 try9 /bin/ bash
-```
-once in the container, the scripts can either be executed or sourced using
+
+In the case the cronjob isn't running in the container, the scripts can either be executed or sourced using
 ```bash
 ./backup.sh # to execute it
 source backup.sh # to source the file
 ```
-for the backup files for example both of the above commands will have as result running the scripts..
-the files to be backedup can then be entered
+For the backup files for example both of the above commands will have as result running the scripts..
+the files to be backed up
+Once run, the mock files can be removed to test the recovery script using:
+```bash
+rm -rf mock* && ls
+```
+They can then recovered by following the same procedure for the recovery script
+
+The backup directory is created and contains the compressed archive file along a log file that contains logs for all files that were backed up.. Its content can be viewed using:
+```bash
+tar -tf backup/archive.tar.gz
+```
